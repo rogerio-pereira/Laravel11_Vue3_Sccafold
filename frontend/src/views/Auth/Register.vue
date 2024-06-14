@@ -50,7 +50,11 @@
 
 <script setup>
     import { ref,computed } from 'vue'
-    import axios from 'axios'
+    import axios from 'axios'import { useUserStore } from '@/stores/user'
+    import router from '@/router'
+
+    const userStore = useUserStore()
+
     const form = ref({
         'name': '',
         'email': '',
@@ -61,7 +65,8 @@
     function register() {
         axios.post('/register', form.value)
             .then(response => {
-                console.log(response)
+                userStore.user = response.data.user
+                router.push({name: 'home'})
             })
             .catch(error => {
                 console.log(error.response.data)
