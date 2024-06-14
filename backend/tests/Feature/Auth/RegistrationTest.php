@@ -19,6 +19,7 @@ class RegistrationTest extends TestCase
         ]);
 
         $this->assertAuthenticated();
+        $response->assertStatus(201);
         $response->assertJson([
             'user' => [
                 'name' => 'Test User',
