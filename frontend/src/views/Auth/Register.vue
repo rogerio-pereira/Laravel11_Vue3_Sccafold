@@ -25,6 +25,7 @@
                 label="Password"
                 v-model='form.password'
                 prepend-icon="mdi-asterisk"
+                type='password'
                 clearable
             />
 
@@ -32,6 +33,7 @@
                 label="Confirmation"
                 v-model='form.password_confirmation'
                 prepend-icon="mdi-asterisk"
+                type='password'
                 clearable
             />
         </v-card-text>
@@ -39,11 +41,9 @@
         <v-card-actions class='mb-4'>
             <v-row class='text-center'>
                 <v-btn @click="register" color='primary' class='mx-auto' variant='elevated'>
-                    Button 
+                    Register 
                 </v-btn>
-            </v-row>{{text}}
-
-
+            </v-row>
         </v-card-actions>
     </v-card>
 </template>
@@ -62,7 +62,7 @@
         'password': '',
         'password_confirmation': '',
     })
-    const text = computed(() => import.meta.env.VITE_BACKEND_URL)
+
     function register() {
         axios.post('/register', form.value)
             .then(response => {
