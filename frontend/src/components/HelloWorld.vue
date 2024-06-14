@@ -1,4 +1,8 @@
 <script setup>
+import { useUserStore } from '@/stores/user'
+
+const userStore = useUserStore()
+
 defineProps({
   msg: {
     type: String,
@@ -9,7 +13,13 @@ defineProps({
 
 <template>
   <div class="greetings">
-    <h1 class="green">{{ msg }}</h1>
+    <h1 class="green">
+        Hello
+        <span v-if='!userStore.isGuest'>
+            {{userStore.user.name}}, <br/>
+        </span>
+    </h1>
+    <h2>{{ msg }}</h2>
     <h3>
       You’ve successfully created a project with
       <a href="https://vitejs.dev/" target="_blank" rel="noopener">Vite</a> +
