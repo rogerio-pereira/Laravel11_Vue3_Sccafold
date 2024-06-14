@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { defineStore } from 'pinia'
 import axios from 'axios'
 import router from '@/router'
@@ -10,6 +10,15 @@ export const useUserStore = defineStore('user', () => {
 
         const isGuest = computed(() => {
             return user.value.id === null
+        })
+
+        watch(user, (user) => {
+            if(user.id === null) {
+                axios.defaults.headers.common['Authorization'] = null;
+            }
+            else {
+                axios.defaults.headers.common['Authorization'] = 'Bearer '+user.token;
+            }
         })
 
         function logout() {
