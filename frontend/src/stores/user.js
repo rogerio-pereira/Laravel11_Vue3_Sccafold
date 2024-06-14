@@ -4,26 +4,31 @@ import axios from 'axios'
 import router from '@/router'
 
 export const useUserStore = defineStore('user', () => {
-    const user = ref({
-        id: null    
-    })
+        const user = ref({
+            id: null    
+        })
 
-    const isGuest = computed(() => {
-        return user.value.id === null
-    })
+        const isGuest = computed(() => {
+            return user.value.id === null
+        })
 
-    function logout() {
-        axios.post('/logout', {})
-            .then(() => {
-                user.value = {
-                        id: null  
-                    }
-                router.push({name: 'login'})
-            })
-            .catch(error => {
-                console.log(error.response.data)
-            })
+        function logout() {
+            axios.post('/logout', {})
+                .then(() => {
+                    user.value = {
+                            id: null  
+                        }
+                    router.push({name: 'login'})
+                })
+                .catch(error => {
+                    console.log(error.response.data)
+                })
+        }
+
+    return { user, logout, isGuest }
+    }, 
+    //Make Store persitent when browser refreshes
+    {
+        persist: true
     }
-
-  return { user, logout, isGuest }
-})
+)
