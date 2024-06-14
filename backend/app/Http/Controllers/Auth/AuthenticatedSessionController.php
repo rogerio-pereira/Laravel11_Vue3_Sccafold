@@ -21,6 +21,10 @@ class AuthenticatedSessionController extends Controller
         $user = Auth::user();
 
         $request->session()->regenerate();
+        
+        $token = $user->regenerateToken();
+        $user = $user->toArray();
+        $user['token'] = $token;
 
         return response()->json([
                         'user' => $user

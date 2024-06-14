@@ -49,4 +49,20 @@ class User extends Authenticatable
             'deleted_at' => 'datetime:Y-m-d H:i:s',
         ];
     }
+
+    public function deleteTokens() : void 
+    {
+        $this->tokens()->delete();
+    }
+
+    public function newToken(string $name = 'frontend') : string 
+    {
+        return $this->createToken($name)->plainTextToken;
+    }
+
+    public function regenerateToken(string $name = 'frontend')
+    {
+        $this->deleteTokens();
+        return $this->newToken($name);
+    }
 }

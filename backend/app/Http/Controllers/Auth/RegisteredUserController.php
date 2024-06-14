@@ -37,6 +37,10 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
+        $token = $user->regenerateToken();
+        $user = $user->toArray();
+        $user['token'] = $token;
+
         return response()->json([
                         'user' => $user
                     ], 201);
