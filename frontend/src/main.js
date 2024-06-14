@@ -7,6 +7,8 @@ import App from './App.vue'
 import router from './router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+// Vuetify
+import vuetify from '@/plugins/vuetify'
 
 //Axios Config
 axios.defaults.withXSRFToken = true
@@ -48,5 +50,6 @@ const app = createApp(App)
 app.use(createPinia())
 app.use(router)
     .use(VueAxios, axios)
+    .use(vuetify)
 
 app.mount('#app')
